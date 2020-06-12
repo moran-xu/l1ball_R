@@ -4,15 +4,15 @@
 \alias{l1ball}
 \title{l1-ball prior for sparse regression}
 \arguments{
-\item{y}{A data vector}
+\item{y}{A data vector, n by 1}
 
-\item{X}{A design matrix}
+\item{X}{A design matrix, n by p}
 
-\item{b_w}{The parameter in \eqn{Beta(1, p^{b_w})} for w}
+\item{b_w}{The parameter in \eqn{Beta(1, b_w)} for w}
 
-\item{step}{Step size for the Markov Chain}
+\item{steps}{Number of steps to run the Markov Chain Monte Carlo}
 
-\item{burnin}{Number of burn-ins for the Markov Chain}
+\item{burn-ins}{Number of burn-ins}
 }
 \value{
 trace returns a list of two component: trace_slab and trace_theta, containing all the posterior samples after burn-in.
