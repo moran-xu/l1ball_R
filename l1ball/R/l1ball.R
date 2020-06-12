@@ -148,7 +148,7 @@ SampleMu <- function(p, lam, slab_indicator, sigma2, w, b_w, eps = .001){
 
 
 
-l1ball <- function(y, X, b_w = 1.0, steps = 3000, burnin=1000){
+l1ball <- function(y, X, b_w = 1.0, steps = 3000, burnin=1000, eps=1E-2){
 	n = nrow(X)
 	p = ncol(X)
 	trace_theta = numeric()
@@ -162,14 +162,14 @@ l1ball <- function(y, X, b_w = 1.0, steps = 3000, burnin=1000){
 	slab_indicator = (abs(theta)>.05)
 	w = 1./p
 
-	trace_slab = matrix(0, nrow = step, ncol = p)
-	trace_theta = matrix(0, nrow = step, ncol = p)
+	trace_slab = matrix(0, nrow = steps, ncol = p)
+	trace_theta = matrix(0, nrow = steps, ncol = p)
 	for (k in 1:steps){
 		if (k%%100==0){
 			print(k)}
 		a = Sample_a(theta, lam, sigma2, slab_indicator, p)
-		slab_indicator = SampleSlabIndicator(p, mu, lam, a, theta, sigma2, slab_indicator, eps= .001)
-		wmu = SampleMu(p, lam, slab_indicator, sigma2, w, b_w, eps = .001)
+		slab_indicator = SampleSlabIndicator(p, mu, lam, a, theta, sigma2, slab_indicator, eps= eps)
+		wmu = SampleMu(p, lam, slab_indicator, sigma2, w, b_w, eps = eps)
 		w = wmu[1]
 		mu = wmu[2]
 		t = SampleT(mu, lam, slab_indicator, theta, sigma2,p)
