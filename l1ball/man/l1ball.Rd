@@ -21,10 +21,16 @@ trace returns a list of two component: trace_slab and trace_theta, containing al
 This package provides function for the l1-ball prior on high-dimensional regression. The main function, l1ball, yields posterior samples for linear regression.
 }
 \examples{
-p=100
-X <- diag(p)
-d =5
-w0 <- c(rep(0, p-d), rnorm(d)+5)
-y = X\%*\% w0
-trace <- l1ball(y,X,1.5,3000,1000)
+
+n = 200
+p = 500
+X <- matrix(rnorm(n*p),n,p)
+d = 5
+w0 <- c(rep(0, p-d), rnorm(d)*0.1+1)
+
+y = X%*% w0 + rnorm(n,0,.1)
+trace <- l1ball(y,X,b_w = 1.5,2000,burnin = 2000)
+
+plot(colMeans(trace$trace_theta))
+
 }
