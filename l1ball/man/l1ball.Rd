@@ -2,23 +2,36 @@
 % Please edit documentation in R/l1ball.R
 \name{l1ball}
 \alias{l1ball}
-\title{l1-ball prior for sparse regression}
+\title{Fit the L1 prior}
 \arguments{
 \item{y}{A data vector, n by 1}
 
 \item{X}{A design matrix, n by p}
 
-\item{b_w}{The parameter in \eqn{Beta(1, b_w)} for w}
+\item{b_w}{The parameter in \eqn{Beta(1, p^{b_w})} for \eqn{w}, default \eqn{b_w=1} }
 
 \item{steps}{Number of steps to run the Markov Chain Monte Carlo}
 
 \item{burn-ins}{Number of burn-ins}
+
+\item{b_lam}{The parameter in \eqn{\lambda_i \sim Inverse-Gamma(1, b_\lambda)}, default \eqn{b_\lambda=10^{-3}}. To increase the level of shrinkage, use smaller \eqn{b_\lambda}. }
+
 }
 \value{
-trace returns a list of two component: trace_slab and trace_theta, containing all the posterior samples after burn-in.
+Outputs, the posterior sample collected from the Markov Chain:
+
+trace_theta: \eqn{\theta}
+
+trace_NonZero: The non-zero indicator \eqn{1(\theta_i\neq 0)}
+
+trace_Lam: \eqn{\lambda_i}
+
+trace_Sigma: \eqn{\sigma^2}
+
 }
 \description{
-This package provides function for the l1-ball prior on high-dimensional regression. The main function, l1ball, yields posterior samples for linear regression.
+This package provides an implementation of the Gibbs sampler, for 
+using l1-ball prior with the regression likelihood  \eqn{y_i = X_i\theta+ \epsilon_i, \epsilon_i\sim {N}(0,\sigma^2)}.
 }
 \examples{
 
@@ -29,7 +42,7 @@ d = 5
 w0 <- c(rep(0, p-d), rnorm(d)*0.1+1)
 
 y = X%*% w0 + rnorm(n,0,.1)
-trace <- l1ball(y,X,b_w = 1.5,2000,burnin = 2000)
+trace <- l1ball(y,X,steps=2000,burnin = 2000)
 
 plot(colMeans(trace$trace_theta))
 

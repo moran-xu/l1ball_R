@@ -1,0 +1,162 @@
+---
+title: "Illustration of L1-ball Prior"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+require("l1ball")
+```
+
+## Sparse Regression
+
+Generate the data  $n=200, p=1000$
+```{r}
+n = 200
+p = 1000
+X <- matrix(rnorm(n*p),n,p)
+d =5
+w0 <-    c(rep(0, p-d), rnorm(d)*0.1 +4)
+y = X%*% w0 + rnorm(n,0,.5)
+```
+
+```{r}
+fit_reg <- l1ball(y, X, steps = 1000,burnin = 2000)
+```
+
+Compare the posterior mean vs the oracle
+```{r}
+par(mfrow=c(1,2))  
+plot(colMeans(fit_reg$trace_theta))
+plot(w0,type='p',col='red')
+```
+
+
+Check the convergence of Markov chain
+
+```{r}
+par(mfrow=c(3,2))  
+for(i in 1:3){
+  plot((fit_reg$trace_theta[,p-d+i]))
+  acf((fit_reg$trace_theta[,p-d+i]), main='')
+}
+
+```
+
+
+
+
+##Change point detection
+
+Generate the data
+```{r}
+p = 500
+n = 500
+d = 5
+idx = floor(seq(1,n,length.out=(d+2))[2:(d+1)])
+w0 <- rep(0, p)
+w0[idx] =  -( rnorm(length(idx)) + 5)
+X <- matrix(1, p, p)
+X[upper.tri(X)] = 0
+y = X%*%w0 + rnorm(p)*1
+plot(y)
+```
+
+```{r}
+fit_changepoint <- l1ball(y, X, steps = 1000,burnin = 2000)
+```
+
+Plot the Data vs Fitted (posterior mean)
+```{r}
+
+theta_mean <- colMeans(fit_changepoint$trace_theta)
+
+plot(y)
+lines(X%*%theta_mean,col="red", lwd=2)
+
+```
+
+Plot the Data vs a few random sample
+```{r}
+
+idx = sample(c(1:1000),3)
+theta1 <- fit_changepoint$trace_theta[idx[1],]
+theta2 <- fit_changepoint$trace_theta[idx[2],]
+theta3 <- fit_changepoint$trace_theta[idx[3],]
+
+plot(y, col = rgb(red = 0, green = 0, blue = 0, alpha = 0.8))
+lines(X%*%theta1,col="red", lwd=2)
+lines(X%*%theta2,col="blue", lwd=2)
+lines(X%*%theta3,col="yellow", lwd=2)
+
+```
+
+
+
+## Linear trend filter
+
+Generate the data
+
+
+```{r}
+n = 500
+p = 500
+d = 3
+
+idx = floor(seq(1,n,length.out = (d+2))[2:(d+1)])
+
+X= matrix(0,n,n)
+for (i in c(1:n)){
+  for (j in c(1:i)){
+    X[i,j] = abs(j-i)+1
+  }
+}
+X[,1]=1
+
+# there are 4 line segments
+
+idx= c(2,idx)
+
+w0 = rep(0,p)
+w0[idx] = (c(1,-2,1,-2))
+psi = X%*%w0
+
+y = psi + rnorm(n)*10
+plot(y)
+```
+
+Fit the model (note: this requires longer run time)
+
+```{r}
+fit_linear_trend <- l1ball(y, X, steps = 1000,burnin = 5000)
+```
+
+
+Plot the Data vs Fitted (posterior mean)
+```{r}
+
+theta_mean <- colMeans(fit_linear_trend$trace_theta)
+
+plot(y)
+lines(X%*%theta_mean,col="red", lwd=2)
+
+```
+
+
+
+
+Plot the Data vs a few random sample
+```{r}
+
+idx = sample(c(1:1000),3)
+theta1 <- fit_linear_trend$trace_theta[idx[1],]
+theta2 <- fit_linear_trend$trace_theta[idx[2],]
+theta3 <- fit_linear_trend$trace_theta[idx[3],]
+
+plot(y, col = rgb(red = 0, green = 0, blue = 0, alpha = 0.8))
+lines(X%*%theta1,col="red", lwd=2)
+lines(X%*%theta2,col="blue", lwd=2)
+lines(X%*%theta3,col="yellow", lwd=2)
+
+```

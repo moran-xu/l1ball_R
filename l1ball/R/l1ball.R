@@ -214,7 +214,7 @@ soft_thresholding<- function(x,a){
 
 
 
-l1ball <- function(y, X, b_w = 1, steps = 3000, burnin=1000, b_lam=1E-5){
+l1ball <- function(y, X, b_w = 1, steps = 3000, burnin=1000, b_lam=1E-3, sigma2_ub=Inf){
 	n = nrow(X)
 	p = ncol(X)
 
@@ -262,24 +262,25 @@ l1ball <- function(y, X, b_w = 1, steps = 3000, burnin=1000, b_lam=1E-5){
 
 		lam = SampleLam(t, mu, sigma2, p, b_lam= b_lam)
 		#sigma2 = 0.1**2#
-		sigma2_and_accept = SampleSigma2(X, y, theta, sigma2, t, mu, lam, n, p, ub = Inf, eps_change = eps_sigma2)
+		sigma2_and_accept = SampleSigma2(X, y, theta, sigma2, t, mu, lam, n, p, ub = sigma2_ub, eps_change = eps_sigma2)
 
 		sigma2 = sigma2_and_accept[1]
 		accept_sigma2 = accept_sigma2+ sigma2_and_accept[2]
 
-		if (k< burnin/4){
+		if (k< burnin/3){
 		  # if (TRUE){
-
 
 		    adapting_steps= 50
 
 		  if( k %%adapting_steps == 0 ){
 
+
+
 		    eps_sigma2 = eps_sigma2* exp( ((accept_sigma2/adapting_steps) - 0.234))
 
 		    eps_w = eps_w* exp( ((accept_w/adapting_steps) - 0.234))
 
-
+		    print ("Adapting the Metropolis-Hastings step size...the acceptance rates are")
 		    print (c(accept_sigma2/adapting_steps, accept_w/adapting_steps))
 		    accept_w = 0
 		    accept_sigma2 = 0
