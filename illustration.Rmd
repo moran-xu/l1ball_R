@@ -22,7 +22,7 @@ y = X%*% w0 + rnorm(n,0,.5)
 ```
 
 ```{r}
-fit_reg <- l1ball(y, X, steps = 1000,burnin = 2000)
+fit_reg <- l1ball(y, X, steps = 1000,burnin = 5000)
 ```
 
 Compare the posterior mean vs the oracle
@@ -64,7 +64,7 @@ plot(y)
 ```
 
 ```{r}
-fit_changepoint <- l1ball(y, X, steps = 1000,burnin = 2000)
+fit_changepoint <- l1ball(y, X, steps = 1000,burnin = 5000)
 ```
 
 Plot the Data vs Fitted (posterior mean)

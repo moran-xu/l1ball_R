@@ -199,7 +199,7 @@ lines(X%*%theta_mean,col="red", lwd=2)
 
 ![](illustration_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
-Plot the Data vs a few random sample
+Plot the Data vs a few random samples
 
 ``` r
 idx = sample(c(1:1000),3)
@@ -392,7 +392,7 @@ lines(X%*%theta_mean,col="red", lwd=2)
 
 ![](illustration_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
-Plot the Data vs a few random sample
+Plot the Data vs a few random samples
 
 ``` r
 idx = sample(c(1:1000),5)
