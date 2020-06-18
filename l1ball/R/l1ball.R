@@ -1,25 +1,34 @@
 #' @name l1ball
-##' @title l1-ball prior for sparse regression
-#' @description This package provides function for the l1-ball prior on high-dimensional regression. The main function, l1ball, yields posterior samples for linear regression.
-#' @param y A data vector
-#' @param X A deb= 0.001 matrix
-#' @param b_w The parameter in \eqn{Beta(1, p^{b_w})} for w
-#' @param step Step size for the Markov Chain
-#' @param burnin Number of burn-ins for the Markov Chain
+##' @title Fit the L1 prior
+#' @description This package provides an implementation of the Gibbs sampler, for using l1-ball prior with the regression likelihood  \eqn{y_i = X_i\theta+ \epsilon_i, \epsilon_i\sim {N}(0,\sigma^2)}.
+#' @param y A data vector, n by 1
+#' @param X A design matrix, n by p
+#' @param b_w The parameter in \eqn{Beta(1, p^{b_w})} for \eqn{w}, default \eqn{b_w=1}
+#' @param step Number of steps to run the Markov Chain Monte Carlo
+#' @param burnin Number of burn-ins
+#' @param b_lam The parameter in \eqn{\lambda_i \sim Inverse-Gamma(1, b_\lambda)}, default \eqn{b_\lambda=10^{-3}}. To increase the level of shrinkage, use smaller \eqn{b_\lambda}.
 
-#' @return trace returns a list of two component: trace_NonZero and trace_theta, containing all the posterior samples after burn-in.
+
+#' @return The posterior sample collected from the Markov Chain:\itemize{
+#'\item trace_theta: \eqn{\theta}
+#'\item trace_NonZero: The non-zero indicator \eqn{1(\theta_i\neq 0)}
+#'\item trace_Lam: \eqn{\lambda_i}
+#'\item trace_Sigma: \eqn{\sigma^2}
+#'}
+
 #' @import extraDistr
 #' @importFrom extraDistr rwald
 #' @import EnvStats
 #' @importFrom EnvStats revd
 #' @examples
-#' p=100
-#' X <- diag(p)
-#' d =5
-#' w0 <- c(rep(0, p-d), rnorm(d)+5)
-#' y = X%*% w0
-#' trace <- l1ball(y,X,1.5,3000,1000)
-#'
+#'n = 200
+#'p = 500
+#'X <- matrix(rnorm(n*p),n,p)
+#'d = 5
+#'w0 <- c(rep(0, p-d), rnorm(d)*0.1+1)
+#'y = X%*% w0 + rnorm(n,0,.1)
+#'trace <- l1ball(y,X,steps=2000,burnin = 2000)
+#'plot(colMeans(trace$trace_theta))
 #' @export l1ball
 
 

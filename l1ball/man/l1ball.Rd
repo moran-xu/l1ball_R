@@ -8,42 +8,32 @@
 
 \item{X}{A design matrix, n by p}
 
-\item{b_w}{The parameter in \eqn{Beta(1, p^{b_w})} for \eqn{w}, default \eqn{b_w=1} }
+\item{b_w}{The parameter in \eqn{Beta(1, p^{b_w})} for \eqn{w}, default \eqn{b_w=1}}
 
-\item{steps}{Number of steps to run the Markov Chain Monte Carlo}
+\item{step}{Number of steps to run the Markov Chain Monte Carlo}
 
-\item{burn-ins}{Number of burn-ins}
+\item{burnin}{Number of burn-ins}
 
-\item{b_lam}{The parameter in \eqn{\lambda_i \sim Inverse-Gamma(1, b_\lambda)}, default \eqn{b_\lambda=10^{-3}}. To increase the level of shrinkage, use smaller \eqn{b_\lambda}. }
-
+\item{b_lam}{The parameter in \eqn{\lambda_i \sim Inverse-Gamma(1, b_\lambda)}, default \eqn{b_\lambda=10^{-3}}. To increase the level of shrinkage, use smaller \eqn{b_\lambda}.}
 }
 \value{
-Outputs, the posterior sample collected from the Markov Chain:
-
-trace_theta: \eqn{\theta}
-
-trace_NonZero: The non-zero indicator \eqn{1(\theta_i\neq 0)}
-
-trace_Lam: \eqn{\lambda_i}
-
-trace_Sigma: \eqn{\sigma^2}
-
+The posterior sample collected from the Markov Chain:\itemize{
+\item trace_theta: \eqn{\theta}
+\item trace_NonZero: The non-zero indicator \eqn{1(\theta_i\neq 0)}
+\item trace_Lam: \eqn{\lambda_i}
+\item trace_Sigma: \eqn{\sigma^2}
+}
 }
 \description{
-This package provides an implementation of the Gibbs sampler, for 
-using l1-ball prior with the regression likelihood  \eqn{y_i = X_i\theta+ \epsilon_i, \epsilon_i\sim {N}(0,\sigma^2)}.
+This package provides an implementation of the Gibbs sampler, for using l1-ball prior with the regression likelihood  \eqn{y_i = X_i\theta+ \epsilon_i, \epsilon_i\sim {N}(0,\sigma^2)}.
 }
 \examples{
-
 n = 200
 p = 500
 X <- matrix(rnorm(n*p),n,p)
 d = 5
 w0 <- c(rep(0, p-d), rnorm(d)*0.1+1)
-
-y = X%*% w0 + rnorm(n,0,.1)
+y = X\%*\% w0 + rnorm(n,0,.1)
 trace <- l1ball(y,X,steps=2000,burnin = 2000)
-
 plot(colMeans(trace$trace_theta))
-
 }
