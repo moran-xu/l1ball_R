@@ -18,21 +18,38 @@ y = X%*% w0 + rnorm(n,0,.5)
 fit_reg <- l1ball(y, X, steps = 1000,burnin = 2000)
 ```
 
-    ## [1] 0.22 0.48
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.48 0.52
     ## [1] 100
-    ## [1] 0.10 0.04
-    ## [1] 0.02 0.08
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.42 0.50
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.10 0.24
     ## [1] 200
-    ## [1] 0.10 0.06
-    ## [1] 0.10 0.02
-    ## [1] 300
-    ## [1] 0.10 0.18
-    ## [1] 0.12 0.10
-    ## [1] 400
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
     ## [1] 0.2 0.2
-    ## [1] 0.14 0.02
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.22 0.18
+    ## [1] 300
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.38 0.20
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.32 0.18
+    ## [1] 400
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.24 0.12
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.18 0.20
     ## [1] 500
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.16 0.12
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.28 0.18
     ## [1] 600
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.30 0.24
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.12 0.16
     ## [1] 700
     ## [1] 800
     ## [1] 900
@@ -103,21 +120,38 @@ plot(y)
 fit_changepoint <- l1ball(y, X, steps = 1000,burnin = 2000)
 ```
 
-    ## [1] 0.40 0.44
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.50 0.56
     ## [1] 100
-    ## [1] 0.24 0.20
-    ## [1] 0.32 0.18
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.28 0.60
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.3 0.3
     ## [1] 200
-    ## [1] 0.24 0.24
-    ## [1] 0.28 0.24
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.14 0.30
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.20 0.24
     ## [1] 300
-    ## [1] 0.24 0.22
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.20 0.14
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
     ## [1] 0.20 0.24
     ## [1] 400
-    ## [1] 0.14 0.10
-    ## [1] 0.20 0.16
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.28 0.14
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.26 0.20
     ## [1] 500
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.22 0.24
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.20 0.22
     ## [1] 600
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.26 0.18
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.24 0.26
     ## [1] 700
     ## [1] 800
     ## [1] 900
@@ -197,7 +231,7 @@ w0 = rep(0,p)
 w0[idx] = (c(1,-2,1,-2))
 psi = X%*%w0
 
-y = psi + rnorm(n)*10
+y = psi + rnorm(n)*5
 plot(y)
 ```
 
@@ -209,46 +243,88 @@ Fit the model (note: this requires longer run time)
 fit_linear_trend <- l1ball(y, X, steps = 1000,burnin = 5000)
 ```
 
-    ## [1] 0.46 0.54
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.50 0.58
     ## [1] 100
-    ## [1] 0.68 0.40
-    ## [1] 0.50 0.38
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.58 0.66
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.5 0.5
     ## [1] 200
-    ## [1] 0.52 0.26
-    ## [1] 0.46 0.28
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.5 0.4
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.48 0.34
     ## [1] 300
-    ## [1] 0.52 0.28
-    ## [1] 0.60 0.26
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.36 0.20
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.40 0.16
     ## [1] 400
-    ## [1] 0.46 0.20
-    ## [1] 0.60 0.18
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.44 0.22
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.24 0.10
     ## [1] 500
-    ## [1] 0.64 0.16
-    ## [1] 0.40 0.06
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.24 0.20
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.22 0.12
     ## [1] 600
-    ## [1] 0.60 0.24
-    ## [1] 0.42 0.22
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.34 0.24
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.42 0.20
     ## [1] 700
-    ## [1] 0.50 0.14
-    ## [1] 0.40 0.26
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.32 0.18
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.16 0.26
     ## [1] 800
-    ## [1] 0.52 0.04
-    ## [1] 0.50 0.16
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.14 0.18
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.26 0.24
     ## [1] 900
-    ## [1] 0.46 0.14
-    ## [1] 0.46 0.14
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.22 0.28
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.20 0.26
     ## [1] 1000
-    ## [1] 0.52 0.06
-    ## [1] 0.36 0.22
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.26 0.16
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.18 0.24
     ## [1] 1100
-    ## [1] 0.64 0.18
-    ## [1] 0.54 0.26
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.04 0.20
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.22 0.20
     ## [1] 1200
-    ## [1] 0.40 0.32
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.22 0.14
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.26 0.22
     ## [1] 1300
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.24 0.20
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.18 0.28
     ## [1] 1400
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.24 0.18
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.22 0.18
     ## [1] 1500
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.12 0.22
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.18 0.10
     ## [1] 1600
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.26 0.26
+    ## [1] "Adapting the Metropolis-Hastings step size...the acceptance rates are"
+    ## [1] 0.26 0.28
     ## [1] 1700
     ## [1] 1800
     ## [1] 1900
@@ -308,10 +384,12 @@ lines(X%*%theta_mean,col="red", lwd=2)
 Plot the Data vs a few random sample
 
 ``` r
-idx = sample(c(1:1000),3)
+idx = sample(c(1:1000),5)
 theta1 <- fit_linear_trend$trace_theta[idx[1],]
 theta2 <- fit_linear_trend$trace_theta[idx[2],]
 theta3 <- fit_linear_trend$trace_theta[idx[3],]
+theta4 <- fit_linear_trend$trace_theta[idx[4],]
+theta5 <- fit_linear_trend$trace_theta[idx[5],]
 
 plot(y, col = rgb(red = 0, green = 0, blue = 0, alpha = 0.8))
 lines(X%*%theta1,col="red", lwd=2)

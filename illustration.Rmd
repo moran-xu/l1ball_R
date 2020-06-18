@@ -122,7 +122,7 @@ w0 = rep(0,p)
 w0[idx] = (c(1,-2,1,-2))
 psi = X%*%w0
 
-y = psi + rnorm(n)*10
+y = psi + rnorm(n)*5
 plot(y)
 ```
 
@@ -149,10 +149,12 @@ lines(X%*%theta_mean,col="red", lwd=2)
 Plot the Data vs a few random sample
 ```{r}
 
-idx = sample(c(1:1000),3)
+idx = sample(c(1:1000),5)
 theta1 <- fit_linear_trend$trace_theta[idx[1],]
 theta2 <- fit_linear_trend$trace_theta[idx[2],]
 theta3 <- fit_linear_trend$trace_theta[idx[3],]
+theta4 <- fit_linear_trend$trace_theta[idx[4],]
+theta5 <- fit_linear_trend$trace_theta[idx[5],]
 
 plot(y, col = rgb(red = 0, green = 0, blue = 0, alpha = 0.8))
 lines(X%*%theta1,col="red", lwd=2)
